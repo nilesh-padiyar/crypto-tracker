@@ -31,8 +31,6 @@ Built as a clean backend practice project with proper typing, validation, and as
 
 ```git clone https://github.com/your-username/crypto-tracker.git```
 
-<br>
-
 ```cd crypto-tracker```
 
 2️⃣ Install dependencies
@@ -57,7 +55,7 @@ After linking, you can run:
 
 ```crypto bitcoin usd```
 
-From any directory 🎉
+From any directory
 
 ---
 
@@ -86,8 +84,6 @@ After building and linking, your CLI becomes a real terminal command.
 - **Without global link:**
 ```node dist/index.js <coin> <currency>```
 
-<br>
-
 - **With npm link:**
 ```crypto <coin> <currency>```
 
@@ -97,8 +93,6 @@ After building and linking, your CLI becomes a real terminal command.
 
 **Command:**
 ```crypto bitcoin usd```
-
-<br>
 
 **Output:**
 ```BITCOIN price: 46662 USD```
@@ -115,22 +109,6 @@ aed, btc, eth
 
 (Defined via ```SUPPORTED_CURRENCIES``` in the source code.) 
 **You can add or remove currencies as per your preferences.**
-
----
-
-# Project Structure
-
-crypto-tracker/
- ├── src/
- │     ├── index.ts
- │     └── services/
- │              └── api.ts
- ├── dist/
- │     ├── index.js
- │     └── services/
- │              └── api.ts
- ├── package.json
- └── tsconfig.json
 
 ---
 
@@ -157,13 +135,11 @@ If you'd like to improve this project:
 3. Make changes
 4. Submit a pull request
 
-<br>
-
 Please keep commit messages clean and descriptive.
 
 ---
 
-# 📜 License
+# License
 
 **MIT** - free to use, fork and distribute
 
