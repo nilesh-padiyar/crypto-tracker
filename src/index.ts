@@ -1,4 +1,4 @@
-#!usr/bin/env node
+#!/usr/bin/env node
 
 import { fetchPrice, Currency, SUPPORTED_CURRENCIES } from "./services/api";
 

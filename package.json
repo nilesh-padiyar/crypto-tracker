@@ -1,14 +1,23 @@
 {
-  "name": "crypto-tracker",
+  "name": "@nilesh-padiyar/crypto-tracker",
   "version": "1.0.0",
   "description": "CLI based Crypto Tracker with CoinGecko Public API",
   "bin": {
-    "crypto": "./dist/index.js"
+    "crypto": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["crypto", "cli", "bitcoin", "crypto-tracker", "Node.js"],
+  "keywords": [
+    "crypto",
+    "cli",
+    "bitcoin",
+    "crypto-tracker",
+    "Node.js"
+  ],
   "author": "Nilesh Padiyar",
   "license": "MIT",
   "devDependencies": {

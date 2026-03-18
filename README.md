@@ -1,111 +1,55 @@
+# Crypto Tracker CLI 🚀
 
-# cryto-tracker
+A lightweight and fast CLI tool to fetch real-time cryptocurrency prices directly from your terminal.
 
-A lightweight TypeScript CLI tool that fetches real-time cryptocurrency prices using the CoinGecko public API.
-
-Built as a clean backend practice project with proper typing, validation, and async handling.
-
-> Version: v1.0.0
+Built with TypeScript using the public CoinGecko API — no API key required.
 
 ---
 
-# Features
+## ✨ Features
 
-- Real-time crypto prices
-
-- Controlled supported currencies
-
-- Written in TypeScript
-
-- Input validation & error handling
-
-- CLI-first experience
-
-- Uses public CoinGecko API (no API key required)
+* 📈 Real-time cryptocurrency prices
+* ⚡ Fast and minimal CLI output
+* 🔒 Input validation & error handling
+* 🧠 Strong typing with TypeScript
+* 🌍 Supports multiple fiat & crypto currencies
+* 🔓 No API key required (uses CoinGecko public API)
 
 ---
 
-# Installation
+## 📦 Installation
 
-1️⃣ Clone the repository
+Install globally via npm:
 
-```git clone https://github.com/your-username/crypto-tracker.git```
-
-<br>
-
-```cd crypto-tracker```
-
-2️⃣ Install dependencies
-
-```npm install```
-
-3️⃣ Build the project
-
-```npm run build```
-
----
-
-# Use It Globally (Recommended)
-
-To use the CLI from anywhere in your terminal, use:
-
-```npm link```
-
-This creates a global symlink to your CLI.
-
-After linking, you can run:
-
-```crypto bitcoin usd```
-
-From any directory 🎉
-
----
-
-# Important: package.json Configuration
-
-For npm link to work, your package.json must include:
-
-```
-{
-  "bin": {
-    "crypto": "dist/index.js"
-  }
-}
+```bash
+npm install -g @nilesh-padiyar/crypto-tracker
 ```
 
-And your ```index.ts``` must start with:
+---
 
-```#!/usr/bin/env node```
+## ⚡ Usage
 
-After building and linking, your CLI becomes a real terminal command.
+```bash
+crypto <coin> <currency>
+```
+
+### Examples
+
+```bash
+crypto bitcoin usd
+crypto ethereum inr
+crypto dogecoin usd
+```
+
+### Example Output
+
+```
+BITCOIN price: 46662 USD
+```
 
 ---
 
-# Usage
-
-- **Without global link:**
-```node dist/index.js <coin> <currency>```
-
-<br>
-
-- **With npm link:**
-```crypto <coin> <currency>```
-
----
-
-# Example:
-
-**Command:**
-```crypto bitcoin usd```
-
-<br>
-
-**Output:**
-```BITCOIN price: 46662 USD```
-
----
-
-# Supported Currencies
+## 💱 Supported Currencies
 
 ```
 usd, inr, eur, gbp, jpy,
@@ -113,58 +57,109 @@ aud, cad, cny, chf, sgd,
 aed, btc, eth
 ```
 
-(Defined via ```SUPPORTED_CURRENCIES``` in the source code.) 
-**You can add or remove currencies as per your preferences.**
+> Defined in the source code via `SUPPORTED_CURRENCIES`
 
 ---
 
-# Project Structure
+## 🧠 How It Works
 
-crypto-tracker/
- ├── src/
- │     ├── index.ts
- │     └── services/
- │              └── api.ts
- ├── dist/
- │     ├── index.js
- │     └── services/
- │              └── api.ts
- ├── package.json
- └── tsconfig.json
+* Fetches live price data from the CoinGecko API
+* Processes and validates user input
+* Displays clean output directly in the terminal
 
 ---
 
-# Tech Stack
+## 🛠️ Development Setup
 
-- Node.js
+If you want to work on the project locally:
 
-- TypeScript
+```bash
+git clone https://github.com/your-username/crypto-tracker.git
+cd crypto-tracker
+npm install
+npm run build
+```
 
-- Async/Await
+Run locally:
 
-- CoinGecko Public API
+```bash
+node dist/index.js bitcoin usd
+```
 
 ---
 
-# Contributing
+## 🔗 Using Locally (Optional)
 
- **Contributions** are welcome.
+You can link it globally for development:
 
-If you'd like to improve this project:
+```bash
+npm link
+```
+
+Then run:
+
+```bash
+crypto bitcoin usd
+```
+
+---
+
+## ⚙️ CLI Configuration
+
+Make sure your `package.json` includes:
+
+```json
+"bin": {
+  "crypto": "dist/index.js"
+}
+```
+
+And your entry file starts with:
+
+```bash
+#!/usr/bin/env node
+```
+
+---
+
+## 🔄 Updating
+
+```bash
+npm update -g @nilesh-padiyar/crypto-tracker
+```
+
+---
+
+## 🧪 Tech Stack
+
+* Node.js
+* TypeScript
+* Async/Await
+* CoinGecko Public API
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
 
 1. Fork the repository
 2. Create a feature branch
-3. Make changes
+3. Make your changes
 4. Submit a pull request
 
-<br>
-
-Please keep commit messages clean and descriptive.
+Please keep commits clean and meaningful.
 
 ---
 
-# 📜 License
+## 📜 License
 
-**MIT** - free to use, fork and distribute
+MIT — free to use, modify, and distribute
+
+---
+
+## 🙌 Author
+
+Nilesh Padiyar
 
 ---
