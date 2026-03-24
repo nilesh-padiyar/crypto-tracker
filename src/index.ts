@@ -1,58 +1,88 @@
 #!/usr/bin/env node
 
-import { fetchPrice, Currency, SUPPORTED_CURRENCIES } from "./services/api";
+// src/index.ts
+import chalk from "chalk";
+import ora from "ora";
+import { fetchPrice, getSupportedCurrencies, Currency } from "./services/api";
 
-const DEFAULT_CURRENCY: Currency = `usd`;
+const DEFAULT_CURRENCY: Currency = "usd";
 
 function showHelp() {
-  console.log(`
---- Cryto Tracker CLI ---
-        
-Usage: crypto <coin> [currency]
+  console.log(
+    chalk.cyan(`
+--- Crypto Tracker CLI ---
 
-Example:
-  crypto ethereum inr
+Usage:
+  crypto <coin> [currency]
+
+Examples:
   crypto bitcoin
+  crypto ethereum inr
   crypto dogecoin eur
-  etc...
+
+Commands:
+  --currencies    Show all supported currencies
+  --help, -h      Show help
 
 Notes:
-  - Currency defaults to USD
-  - Supported currencies - USD, INR, EUR, GBP, JPY, AUD, CAD,
-      CNY, SGD, AED, BTC, and ETH
-  `);
+  - Default currency is USD
+`)
+  );
 }
 
 async function main() {
   const coin = process.argv[2];
+  const currencyInput = (process.argv[3] || DEFAULT_CURRENCY).toLowerCase();
 
-  const currencyInut = (process.argv[3] || DEFAULT_CURRENCY).toLowerCase();
-  if (!SUPPORTED_CURRENCIES.includes(currencyInut as Currency)) {
-    console.error(`Unsupported Currency!`);
-    console.log(`Supported Currencies -`);
-    console.log(SUPPORTED_CURRENCIES.join(`,`));
-    process.exit(1);
-  }
-
-  const currency = currencyInut as Currency;
-
-  if (!coin) {
+  // Help
+  if (!coin || coin === "--help" || coin === "-h") {
     showHelp();
-    process.exit(1);
+    process.exit(0);
   }
 
-  if (coin == `--help` || coin == `-h`) {
-    showHelp();
-    process.exit(1);
+  // Show all currencies
+  if (coin === "--currencies") {
+    const spinner = ora("Fetching supported currencies...").start();
+
+    try {
+      const currencies = await getSupportedCurrencies();
+      spinner.succeed("Currencies fetched!");
+      console.log(chalk.green("\nSupported currencies:\n"));
+      console.log(chalk.yellow(currencies.join(", ")));
+      console.log();
+    } catch (err) {
+      spinner.fail("Failed to fetch currencies");
+      console.error(chalk.red((err as Error).message));
+    }
+
+    process.exit(0);
   }
+
+  const spinner = ora("Validating currency...").start();
 
   try {
-    const price = await fetchPrice(coin, currency);
-    console.log(`${coin.toUpperCase()} price: ${price} ${currency.toUpperCase()}`);
+    const supportedCurrencies = await getSupportedCurrencies();
+
+    if (!supportedCurrencies.includes(currencyInput)) {
+      spinner.fail("Invalid currency");
+      const suggestion = supportedCurrencies.find(c => c.startsWith(currencyInput.slice(0, 2)));
+      console.error(chalk.red(`\n❌ Unsupported currency: ${currencyInput}`));
+      if (suggestion) console.log(chalk.yellow(`👉 Did you mean: ${suggestion}?`));
+      console.log(chalk.cyan("\nRun `crypto --currencies` to see all options.\n"));
+      process.exit(1);
+    }
+
+    spinner.text = "Fetching crypto price...";
+    const price = await fetchPrice(coin, currencyInput);
+    spinner.succeed("Price fetched successfully!");
+
+    console.log(chalk.green("\n✅ Result:\n"));
+    console.log(`${chalk.blue(coin.toUpperCase())} → ${chalk.yellow(price)} ${chalk.magenta(currencyInput.toUpperCase())}\n`);
+
   } catch (err) {
-    console.error("Error:", (err as Error).message);
+    spinner.fail("Something went wrong");
+    console.error(chalk.red("\n❌ Error:"), chalk.white((err as Error).message), "\n");
   }
 }
 
 main();
-

@@ -25,6 +25,11 @@ Install globally via npm:
 npm install -g @nilesh-padiyar/crypto-tracker
 ```
 
+Before installing, make sure you have
+
+* [Node.js](https://nodejs.org) (v14 or higher recommended)
+* npm (comes with Node.js)
+
 ---
 
 ## ⚡ Usage
@@ -43,7 +48,7 @@ crypto dogecoin usd
 
 ### Example Output
 
-```
+```bash
 BITCOIN price: 46662 USD
 ```
 
@@ -51,13 +56,12 @@ BITCOIN price: 46662 USD
 
 ## 💱 Supported Currencies
 
-```
-usd, inr, eur, gbp, jpy,
-aud, cad, cny, chf, sgd,
-aed, btc, eth
-```
+Supports all currencies available from the CoinGecko API.  
+To see the full list of supported currencies, run:
 
-> Defined in the source code via `SUPPORTED_CURRENCIES`
+```bash
+crypto --currencies
+```
 
 ---
 
@@ -66,6 +70,25 @@ aed, btc, eth
 * Fetches live price data from the CoinGecko API
 * Validates user input
 * Displays clean output in the terminal
+
+---
+
+##  Notes on Rate-Limiting
+
+CoinGecko public API allows up to 50 requests per minute per IP.
+
+* If you hit the limit, the CLI will automatically retry with exponential backoff.
+* Example warning:
+
+```bash
+⚠ 429 Rate limit hit, retrying in 1000ms...
+⚠ 429 Rate limit hit, retrying in 2000ms...
+⚠ 429 Rate limit hit, retrying in 4000ms...
+✖ Something went wrong
+```
+
+* This ensures users understand their usage limits while preventing the CLI from failing silently.
+* Cached and fallback currencies help reduce unnecessary API calls.
 
 ---
 
